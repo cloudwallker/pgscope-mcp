@@ -33,6 +33,8 @@ packages = ["src/pgscope_mcp"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# Repository helpers are not part of the installed MCP wheel.
+pythonpath = ["."]
 asyncio_mode = "auto"
 markers = ["integration: requires PGSCOPE_TEST_DSN pointing at the demo database"]
 
