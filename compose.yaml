@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: pgscope_demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pgscope_demo_admin
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - pgscope_demo_data:/var/lib/postgresql/data
+      - ./demo/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pgscope_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+volumes:
+  pgscope_demo_data:

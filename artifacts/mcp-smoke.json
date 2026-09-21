@@ -1,0 +1,278 @@
+{
+  "list_tables": {
+    "tables": [
+      {
+        "schema": "public",
+        "name": "customers",
+        "estimated_rows": 5000,
+        "size_bytes": 1040384,
+        "comment": null
+      },
+      {
+        "schema": "public",
+        "name": "order_items",
+        "estimated_rows": 200000,
+        "size_bytes": 18210816,
+        "comment": null
+      },
+      {
+        "schema": "public",
+        "name": "orders",
+        "estimated_rows": 100000,
+        "size_bytes": 11632640,
+        "comment": null
+      }
+    ],
+    "has_more": false,
+    "next_offset": null
+  },
+  "describe_table": {
+    "schema": "public",
+    "name": "orders",
+    "estimated_rows": 100000,
+    "size_bytes": 11632640,
+    "comment": null,
+    "columns": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "nullable": false,
+        "default": null,
+        "comment": null
+      },
+      {
+        "name": "customer_id",
+        "type": "bigint",
+        "nullable": false,
+        "default": null,
+        "comment": null
+      },
+      {
+        "name": "created_at",
+        "type": "timestamp without time zone",
+        "nullable": false,
+        "default": null,
+        "comment": null
+      },
+      {
+        "name": "status",
+        "type": "text",
+        "nullable": false,
+        "default": null,
+        "comment": null
+      },
+      {
+        "name": "total",
+        "type": "numeric(12,2)",
+        "nullable": false,
+        "default": null,
+        "comment": null
+      }
+    ],
+    "primary_key": [
+      "id"
+    ],
+    "foreign_keys": [
+      {
+        "name": "orders_customer_id_fkey",
+        "definition": "FOREIGN KEY (customer_id) REFERENCES public.customers(id)"
+      }
+    ],
+    "indexes": [
+      {
+        "name": "idx_demo_orders_created_at",
+        "definition": "CREATE INDEX idx_demo_orders_created_at ON public.orders USING btree (created_at)",
+        "columns": [
+          "created_at"
+        ],
+        "unique": false,
+        "method": "btree",
+        "partial": false,
+        "expression": false,
+        "valid": true
+      },
+      {
+        "name": "orders_pkey",
+        "definition": "CREATE UNIQUE INDEX orders_pkey ON public.orders USING btree (id)",
+        "columns": [
+          "id"
+        ],
+        "unique": true,
+        "method": "btree",
+        "partial": false,
+        "expression": false,
+        "valid": true
+      }
+    ]
+  },
+  "query": {
+    "columns": [
+      {
+        "name": "order_count",
+        "type_oid": 20
+      }
+    ],
+    "rows": [
+      [
+        100000
+      ]
+    ],
+    "row_count": 1,
+    "truncated": false,
+    "elapsed_ms": 57.723
+  },
+  "explain": {
+    "sql": "SELECT id FROM \"public\".orders WHERE id = 42",
+    "plan": [
+      {
+        "Plan": {
+          "Node Type": "Index Only Scan",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "orders_pkey",
+          "Relation Name": "orders",
+          "Schema": "public",
+          "Alias": "orders",
+          "Startup Cost": 0.29,
+          "Total Cost": 4.31,
+          "Plan Rows": 1,
+          "Plan Width": 8,
+          "Output": [
+            "id"
+          ],
+          "Index Cond": "(orders.id = 42)"
+        },
+        "Settings": {
+          "search_path": "pg_catalog"
+        }
+      }
+    ],
+    "summary": {
+      "nodes": [
+        {
+          "path": "$.Plan",
+          "node_type": "Index Only Scan",
+          "relation": "orders",
+          "schema": "public",
+          "startup_cost": 0.29,
+          "total_cost": 4.31,
+          "plan_rows": 1,
+          "actual_rows": null,
+          "actual_loops": null,
+          "actual_startup_time_ms": null,
+          "actual_total_time_ms": null,
+          "filter": null,
+          "index_cond": "(orders.id = 42)",
+          "join_filter": null,
+          "sort_method": null,
+          "sort_space_type": null,
+          "sort_space_used_kb": null
+        }
+      ],
+      "estimated_cost": 4.31,
+      "planning_time_ms": null,
+      "execution_time_ms": null,
+      "analyzed": false
+    }
+  },
+  "diagnose": {
+    "sql": "SELECT * FROM \"public\".orders WHERE DATE(created_at) = CAST('2024-06-15' AS DATE)",
+    "plan": [
+      {
+        "Plan": {
+          "Node Type": "Seq Scan",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "orders",
+          "Schema": "public",
+          "Alias": "orders",
+          "Startup Cost": 0.0,
+          "Total Cost": 2363.0,
+          "Plan Rows": 500,
+          "Plan Width": 36,
+          "Output": [
+            "id",
+            "customer_id",
+            "created_at",
+            "status",
+            "total"
+          ],
+          "Filter": "(date(orders.created_at) = '2024-06-15'::date)"
+        },
+        "Settings": {
+          "search_path": "pg_catalog"
+        }
+      }
+    ],
+    "summary": {
+      "nodes": [
+        {
+          "path": "$.Plan",
+          "node_type": "Seq Scan",
+          "relation": "orders",
+          "schema": "public",
+          "startup_cost": 0.0,
+          "total_cost": 2363.0,
+          "plan_rows": 500,
+          "actual_rows": null,
+          "actual_loops": null,
+          "actual_startup_time_ms": null,
+          "actual_total_time_ms": null,
+          "filter": "(date(orders.created_at) = '2024-06-15'::date)",
+          "index_cond": null,
+          "join_filter": null,
+          "sort_method": null,
+          "sort_space_type": null,
+          "sort_space_used_kb": null
+        }
+      ],
+      "estimated_cost": 2363.0,
+      "planning_time_ms": null,
+      "execution_time_ms": null,
+      "analyzed": false
+    },
+    "findings": [
+      {
+        "rule_id": "SELECT_STAR",
+        "severity": "info",
+        "message": "SELECT * 会读取查询未必需要的列。",
+        "evidence": {
+          "ast_sql": "SELECT * FROM \"public\".orders WHERE DATE(created_at) = CAST('2024-06-15' AS DATE)"
+        },
+        "suggestion": "明确列出实际使用的列。",
+        "candidate_index": null
+      },
+      {
+        "rule_id": "INDEXED_COLUMN_WRAPPED",
+        "severity": "warning",
+        "message": "过滤条件在已有索引列上应用函数或类型转换。",
+        "evidence": {
+          "ast_sql": "SELECT * FROM \"public\".orders WHERE DATE(created_at) = CAST('2024-06-15' AS DATE)",
+          "column": "created_at",
+          "expression": "DATE(created_at)"
+        },
+        "suggestion": "检查能否直接按原列类型过滤，或评估符合查询形式的表达式索引。",
+        "candidate_index": null
+      },
+      {
+        "rule_id": "SELECTIVE_SEQ_SCAN",
+        "severity": "warning",
+        "message": "大表上的顺序扫描预计只返回少量行。",
+        "evidence": {
+          "node_path": "$.Plan",
+          "relation": "orders",
+          "schema": "public",
+          "table_estimated_rows": 100000,
+          "plan_rows": 500,
+          "estimated_fraction": 0.005
+        },
+        "suggestion": "核对统计信息与过滤条件，再评估适合的普通索引。",
+        "candidate_index": null
+      }
+    ],
+    "limitations": [
+      "未实际执行：不能判断实际耗时、基数偏差或排序落盘；cost 是估算成本单位。"
+    ]
+  }
+}

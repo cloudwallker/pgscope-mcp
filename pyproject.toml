@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pgscope-mcp"
+version = "0.1.0"
+description = "Evidence-backed PostgreSQL query and diagnosis tools for MCP agents"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+  "anyio>=4.5,<5",
+  "mcp[cli]>=2,<3",
+  "psycopg[binary]>=3.2,<4",
+  "sqlglot==30.18.0",
+  "pydantic-settings>=2.7,<3",
+]
+
+[project.urls]
+Repository = "https://github.com/cloudwallker/pgscope-mcp"
+Issues = "https://github.com/cloudwallker/pgscope-mcp/issues"
+Documentation = "https://github.com/cloudwallker/pgscope-mcp#readme"
+
+[project.scripts]
+pgscope-mcp = "pgscope_mcp.server:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1.4,<2", "ruff>=0.11,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pgscope_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["integration: requires PGSCOPE_TEST_DSN pointing at the demo database"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
