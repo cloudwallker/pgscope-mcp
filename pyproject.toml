@@ -31,13 +31,6 @@ dev = ["pytest>=8,<10", "pytest-asyncio>=1.4,<2", "ruff>=0.11,<1"]
 [tool.hatch.build.targets.wheel]
 packages = ["src/pgscope_mcp"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-# Repository helpers are not part of the installed MCP wheel.
-pythonpath = ["."]
-asyncio_mode = "auto"
-markers = ["integration: requires PGSCOPE_TEST_DSN pointing at the demo database"]
-
 [tool.ruff]
 target-version = "py312"
 line-length = 100
