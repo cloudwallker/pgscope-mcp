@@ -31,6 +31,30 @@ dev = ["pytest>=8,<10", "pytest-asyncio>=1.4,<2", "ruff>=0.11,<1"]
 [tool.hatch.build.targets.wheel]
 packages = ["src/pgscope_mcp"]
 
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/scripts/__init__.py",
+  "/scripts/benchmark.py",
+  "/scripts/smoke_mcp.py",
+  "/demo/README.md",
+  "/demo/init.sql",
+  "/docs/architecture.md",
+  "/docs/implementation.md",
+  "/docs/interview.md",
+  "/examples/agent-prompts.md",
+  "/examples/mcp-client.json",
+  "/artifacts/benchmark/benchmark.md",
+  "/artifacts/benchmark/benchmark.json",
+  "/README.md",
+  "/LICENSE",
+  "/THIRD_PARTY.md",
+  "/.env.example",
+  "/compose.yaml",
+  "/pyproject.toml",
+  "/uv.lock",
+]
+
 [tool.ruff]
 target-version = "py312"
 line-length = 100
