@@ -1,13 +1,17 @@
 # PGScope MCP
 
+### Read-only PostgreSQL inspection and diagnosis for agents
+
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![PostgreSQL 17](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)](compose.yaml)
 [![MCP · stdio](https://img.shields.io/badge/MCP-stdio-222222)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**中文简介** · 面向 Agent 的 PostgreSQL 只读查询与诊断服务。通过本地 stdio MCP 查看表结构、查询数据、分析执行计划，以数据库证据支撑优化建议，并用可重复实验验证效果。
+**Give your agent database evidence: explore schemas, run read-only queries, and inspect execution plans before proposing SQL improvements. Reproduce the included optimization experiments to compare results.**
 
-**English** · A read-only PostgreSQL MCP server for AI agents. Explore schemas, query data, inspect execution plans, and diagnose SQL with database evidence. Includes reproducible optimization benchmarks. Runs locally over stdio; no model API key required.
+**让 Agent 依据数据库证据提出 SQL 优化建议：查看表结构、执行只读查询、分析执行计划，再通过随附的可复现实验比较优化前后的结果。**
+
+Runs locally over stdio MCP without calling a model. The connected agent organizes tool calls.
 
 [快速启动](#快速启动) · [工具接口](#工具接口) · [优化实验](#复现优化实验) · [架构设计](docs/architecture.md) · [演示环境](demo/README.md)
 
