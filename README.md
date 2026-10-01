@@ -15,6 +15,8 @@ Runs locally over stdio MCP without calling a model. The connected agent organiz
 
 [快速启动](#快速启动) · [工具接口](#工具接口) · [优化实验](#复现优化实验) · [架构设计](docs/architecture.md) · [演示环境](demo/README.md)
 
+![pgscope-mcp](docs/images/cartoon-infographic.png)
+
 ```mermaid
 flowchart LR
     Agent[Agent / MCP 客户端] <-->|本地 stdio| MCP[PGScope MCP]
