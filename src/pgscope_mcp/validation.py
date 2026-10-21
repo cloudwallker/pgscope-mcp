@@ -78,7 +78,8 @@ def _validate_tree(tree: exp.Expression) -> None:
             or type(node.expression).__name__ not in _QUERY_NODES
         ):
             _reject()
-        if isinstance(node, exp.Func):
+        # SQLGlot also models structural connectors such as AND/OR as Func.
+        if isinstance(node, exp.Func) and kind not in _STRUCTURAL_NODES:
             if kind not in _FUNCTION_NODES:
                 _reject("查询包含未获允许的函数。")
         elif kind not in _STRUCTURAL_NODES:

@@ -135,6 +135,10 @@ Inspector 需要 Node.js，首次使用会下载 Inspector。确保启动它的�
 
 未限定 schema 的表解析为允许列表中的第一个 schema；工具元数据参数默认仍为 `public`，其他 schema 应显式传入。查询限定为受支持的单条 SELECT 子集：JOIN、只读 CTE、集合查询、聚合和常见日期/数值/文本函数；函数允许清单位于 `validation.py`。
 
+过滤条件支持 `AND`、`OR` 及其括号组合；危险函数、未知函数和带 schema 限定的函数调用仍被拒绝。
+
+Filters support `AND`, `OR`, and parenthesized combinations; dangerous, unknown, and schema-qualified function calls remain rejected.
+
 多语句、DML/DDL、写入 CTE、行锁、`SELECT INTO`、系统 schema、任意自定义函数/类型/操作符均被拒绝。首版只支持普通表和分区表，不支持视图及外部表。每次操作使用只读事务、独立连接和固定 `search_path=pg_catalog`，并在完成、错误或取消后关闭；最多同时处理四个数据库操作。查询默认 100 行，最大 1,000 行，JSON 响应上限 1 MiB，SQL 输入上限 64 KiB。
 
 连接真实库时，请由 DBA 提供仅有目标业务表 SELECT 和对应 schema USAGE 的账号；服务拒绝超级用户及常见管理角色，但这不代替数据库授权。账号与允许 schema 都应最小化。连接具有恶意扩展、自定义类型或恶意 DBA 的数据库不属于本项目的隔离保证。

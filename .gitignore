@@ -36,3 +36,8 @@ artifacts/ci-*
 /docs/validation.md
 /artifacts/mcp-smoke.json
 /CONTRIBUTING.md
+
+# Publish the focused SQL validation regressions with their implementation.
+!/tests/
+/tests/*
+!/tests/test_validation.py
